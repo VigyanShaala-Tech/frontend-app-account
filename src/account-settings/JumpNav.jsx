@@ -13,6 +13,9 @@ const JumpNav = () => {
 
   return (
     <div className={classNames('jump-nav', { 'jump-nav-sm position-sticky pt-3': stickToTop })}>
+      <PluginSlot id="custom_account_jump_nav_styles_slot">
+        <></>
+      </PluginSlot>
       <Scrollspy
         items={[
           'basic-information',
@@ -46,11 +49,13 @@ const JumpNav = () => {
             </NavHashLink>
           </li>
         </PluginSlot>
-        <li>
-          <NavHashLink to="#notifications">
-            {intl.formatMessage(messages['notification.preferences.notifications.label'])}
-          </NavHashLink>
-        </li>
+        <PluginSlot id="remove_notifications_plugin_slot">
+          <li>
+            <NavHashLink to="#notifications">
+              {intl.formatMessage(messages['notification.preferences.notifications.label'])}
+            </NavHashLink>
+          </li>
+        </PluginSlot>
         <li>
           <NavHashLink to="#site-preferences">
             {intl.formatMessage(messages['account.settings.section.site.preferences'])}
