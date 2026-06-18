@@ -1,0 +1,9 @@
+.jump-nav{
+  .list-unstyled{
+    li{
+      a{
+        color: var(--pgn-color-primary-base);
+      }
+    }
+  }
+}

@@ -16,6 +16,7 @@ import {
 import {
   Container, Hyperlink, Icon, Alert,
 } from '@openedx/paragon';
+import { PluginSlot } from '@openedx/frontend-plugin-framework';
 import { CheckCircle, Error, WarningFilled } from '@openedx/paragon/icons';
 
 import messages from './AccountSettingsPage.messages';
@@ -687,91 +688,105 @@ class AccountSettingsPage extends React.Component {
             )}
         </div>
 
-        <div className="account-section pt-3 mb-5" id="profile-information" ref={this.navLinkRefs['#profile-information']}>
-          <h2 className="section-heading h4 mb-3">
-            {this.props.intl.formatMessage(messages['account.settings.section.profile.information'])}
-          </h2>
+        <PluginSlot
+          id="remove_profile_info_plugin_slot"
+          pluginProps={{
+            navigate: this.props.navigate,
+          }}
+        >
+          <div className="account-section pt-3 mb-5" id="profile-information" ref={this.navLinkRefs['#profile-information']}>
+            <h2 className="section-heading h4 mb-3">
+              {this.props.intl.formatMessage(messages['account.settings.section.profile.information'])}
+            </h2>
 
-          <EditableSelectField
-            name="level_of_education"
-            type="select"
-            value={this.props.formValues.level_of_education}
-            options={getConfig().ENABLE_COPPA_COMPLIANCE
-              ? educationLevelOptions.filter(option => option.value !== 'el')
-              : educationLevelOptions}
-            label={this.props.intl.formatMessage(messages['account.settings.field.education'])}
-            emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.education.empty'])}
-            {...editableFieldProps}
-          />
-          <EditableSelectField
-            name="gender"
-            type="select"
-            value={this.props.formValues.gender}
-            options={genderOptions}
-            label={this.props.intl.formatMessage(messages['account.settings.field.gender'])}
-            emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.gender.empty'])}
-            {...editableFieldProps}
-          />
-          {hasWorkExperience
-          && (
-          <EditableSelectField
-            name="work_experience"
-            type="select"
-            value={this.props.formValues?.extended_profile?.find(field => field.field_name === 'work_experience')?.field_value}
-            options={workExperienceOptions}
-            label={this.props.intl.formatMessage(messages['account.settings.field.work.experience'])}
-            emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.work.experience.empty'])}
-            {...editableFieldProps}
-          />
-          )}
-          <EditableSelectField
-            name="language_proficiencies"
-            type="select"
-            value={this.props.formValues.language_proficiencies}
-            options={languageProficiencyOptions}
-            label={this.props.intl.formatMessage(messages['account.settings.field.language.proficiencies'])}
-            emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.language.proficiencies.empty'])}
-            {...editableFieldProps}
-          />
-
-          <AdditionalProfileFieldsSlot />
-        </div>
-        <div className="account-section pt-3 mb-6" id="social-media">
-          <h2 className="section-heading h4 mb-3">
-            {this.props.intl.formatMessage(messages['account.settings.section.social.media'])}
-          </h2>
-          <p>
-            {this.props.intl.formatMessage(
-              messages['account.settings.section.social.media.description'],
-              { siteName: getConfig().SITE_NAME },
+            <EditableSelectField
+              name="level_of_education"
+              type="select"
+              value={this.props.formValues.level_of_education}
+              options={getConfig().ENABLE_COPPA_COMPLIANCE
+                ? educationLevelOptions.filter(option => option.value !== 'el')
+                : educationLevelOptions}
+              label={this.props.intl.formatMessage(messages['account.settings.field.education'])}
+              emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.education.empty'])}
+              {...editableFieldProps}
+            />
+            <EditableSelectField
+              name="gender"
+              type="select"
+              value={this.props.formValues.gender}
+              options={genderOptions}
+              label={this.props.intl.formatMessage(messages['account.settings.field.gender'])}
+              emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.gender.empty'])}
+              {...editableFieldProps}
+            />
+            {hasWorkExperience
+            && (
+            <EditableSelectField
+              name="work_experience"
+              type="select"
+              value={this.props.formValues?.extended_profile?.find(field => field.field_name === 'work_experience')?.field_value}
+              options={workExperienceOptions}
+              label={this.props.intl.formatMessage(messages['account.settings.field.work.experience'])}
+              emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.work.experience.empty'])}
+              {...editableFieldProps}
+            />
             )}
-          </p>
+            <EditableSelectField
+              name="language_proficiencies"
+              type="select"
+              value={this.props.formValues.language_proficiencies}
+              options={languageProficiencyOptions}
+              label={this.props.intl.formatMessage(messages['account.settings.field.language.proficiencies'])}
+              emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.language.proficiencies.empty'])}
+              {...editableFieldProps}
+            />
 
-          <EditableField
-            name="social_link_linkedin"
-            type="text"
-            value={this.props.formValues.social_link_linkedin}
-            label={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.linkedin'])}
-            emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.linkedin.empty'])}
-            {...editableFieldProps}
-          />
-          <EditableField
-            name="social_link_facebook"
-            type="text"
-            value={this.props.formValues.social_link_facebook}
-            label={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.facebook'])}
-            emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.facebook.empty'])}
-            {...editableFieldProps}
-          />
-          <EditableField
-            name="social_link_twitter"
-            type="text"
-            value={this.props.formValues.social_link_twitter}
-            label={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.twitter'])}
-            emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.twitter.empty'])}
-            {...editableFieldProps}
-          />
-        </div>
+            <AdditionalProfileFieldsSlot />
+          </div>
+        </PluginSlot>
+        <PluginSlot
+          id="remove_social_media_plugin_slot"
+          pluginProps={{
+            navigate: this.props.navigate,
+          }}
+        >
+          <div className="account-section pt-3 mb-6" id="social-media">
+            <h2 className="section-heading h4 mb-3">
+              {this.props.intl.formatMessage(messages['account.settings.section.social.media'])}
+            </h2>
+            <p>
+              {this.props.intl.formatMessage(
+                messages['account.settings.section.social.media.description'],
+                { siteName: getConfig().SITE_NAME },
+              )}
+            </p>
+
+            <EditableField
+              name="social_link_linkedin"
+              type="text"
+              value={this.props.formValues.social_link_linkedin}
+              label={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.linkedin'])}
+              emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.linkedin.empty'])}
+              {...editableFieldProps}
+            />
+            <EditableField
+              name="social_link_facebook"
+              type="text"
+              value={this.props.formValues.social_link_facebook}
+              label={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.facebook'])}
+              emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.facebook.empty'])}
+              {...editableFieldProps}
+            />
+            <EditableField
+              name="social_link_twitter"
+              type="text"
+              value={this.props.formValues.social_link_twitter}
+              label={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.twitter'])}
+              emptyLabel={this.props.intl.formatMessage(messages['account.settings.field.social.platform.name.twitter.empty'])}
+              {...editableFieldProps}
+            />
+          </div>
+        </PluginSlot>
         <div className="border border-light-700" />
         <div className="mt-6" id="notifications" ref={this.navLinkRefs['#notifications']}>
           <NotificationSettings />

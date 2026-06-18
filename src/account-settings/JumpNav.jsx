@@ -1,6 +1,7 @@
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { breakpoints, useWindowSize } from '@openedx/paragon';
+import { PluginSlot } from '@openedx/frontend-plugin-framework';
 import classNames from 'classnames';
 import { NavHashLink } from 'react-router-hash-link';
 import Scrollspy from 'react-scrollspy';
@@ -12,6 +13,9 @@ const JumpNav = () => {
 
   return (
     <div className={classNames('jump-nav', { 'jump-nav-sm position-sticky pt-3': stickToTop })}>
+      <PluginSlot id="custom_account_jump_nav_styles_slot">
+        <></>
+      </PluginSlot>
       <Scrollspy
         items={[
           'basic-information',
@@ -31,21 +35,27 @@ const JumpNav = () => {
             {intl.formatMessage(messages['account.settings.section.account.information'])}
           </NavHashLink>
         </li>
-        <li>
-          <NavHashLink to="#profile-information">
-            {intl.formatMessage(messages['account.settings.section.profile.information'])}
-          </NavHashLink>
-        </li>
-        <li>
-          <NavHashLink to="#social-media">
-            {intl.formatMessage(messages['account.settings.section.social.media'])}
-          </NavHashLink>
-        </li>
-        <li>
-          <NavHashLink to="#notifications">
-            {intl.formatMessage(messages['notification.preferences.notifications.label'])}
-          </NavHashLink>
-        </li>
+        <PluginSlot id="remove_profile_info_plugin_slot">
+          <li>
+            <NavHashLink to="#profile-information">
+              {intl.formatMessage(messages['account.settings.section.profile.information'])}
+            </NavHashLink>
+          </li>
+        </PluginSlot>
+        <PluginSlot id="remove_social_media_plugin_slot">
+          <li>
+            <NavHashLink to="#social-media">
+              {intl.formatMessage(messages['account.settings.section.social.media'])}
+            </NavHashLink>
+          </li>
+        </PluginSlot>
+        <PluginSlot id="remove_notifications_plugin_slot">
+          <li>
+            <NavHashLink to="#notifications">
+              {intl.formatMessage(messages['notification.preferences.notifications.label'])}
+            </NavHashLink>
+          </li>
+        </PluginSlot>
         <li>
           <NavHashLink to="#site-preferences">
             {intl.formatMessage(messages['account.settings.section.site.preferences'])}
