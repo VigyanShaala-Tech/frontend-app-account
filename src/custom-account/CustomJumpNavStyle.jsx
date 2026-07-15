@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import './styles/jump-nav.css';
+import './styles/custom-overrides.scss';
 
 const CustomJumpNavStyle = () => {
   return (null)
