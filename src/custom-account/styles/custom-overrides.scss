@@ -1,0 +1,25 @@
+.jump-nav .list-unstyled li a {
+  color: var(--pgn-color-primary-base);
+}
+.page__account-settings {
+  max-width: 1400px !important;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+@media (max-width: 991px) {
+  .page__account-settings {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .page__account-settings {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
