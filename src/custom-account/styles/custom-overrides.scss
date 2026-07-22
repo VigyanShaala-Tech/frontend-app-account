@@ -12,6 +12,13 @@
 
   .jump-nav .list-unstyled li a {
     color: var(--pgn-color-primary-base);
+    text-decoration: none;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   // Keep left navigation visible while scrolling.
@@ -30,6 +37,25 @@
   #linked-accounts,
   #delete-account {
     scroll-margin-top: calc(var(--custom-account-header-offset) + 0.75rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .page__account-settings {
+    .row {
+      gap: 2rem;
+    }
+
+    .row > .col-md-3,
+    .row > .col-md-9 {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .row > .col-md-3 {
+      flex: 0 0 224px;
+      max-width: 224px;
+    }
   }
 }
 
