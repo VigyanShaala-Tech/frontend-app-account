@@ -8,12 +8,26 @@ hooks.Filters.ENV_PATCHES.add_item(
         // This file contains configuration for plugins and environment variables.
 const { PLUGIN_OPERATIONS, DIRECT_PLUGIN } = await import('@openedx/frontend-plugin-framework');
 const { default: CustomJumpNavStyle } = await import('./src/custom-account/CustomJumpNavStyle');
+const { default: CustomEditableSelectControl } = await import('./src/custom-account/components/CustomEditableSelectControl');
 {% raw %}
 config = {
   ...config,
   ...process.env,
 }
 config.pluginSlots = {
+  account_editable_select_field_slot: {
+    plugins: [
+      {
+        op: PLUGIN_OPERATIONS.Insert,
+        widget: {
+          id: 'custom_editable_select_control',
+          type: DIRECT_PLUGIN,
+          priority: 1,
+          RenderWidget: CustomEditableSelectControl,
+        },
+      },
+    ],
+  },
   remove_profile_info_plugin_slot: {
     plugins: [
       {
@@ -46,6 +60,32 @@ config.pluginSlots = {
         op: PLUGIN_OPERATIONS.Insert,
         widget: {
           id: 'remove_notifications_plugin_slot',
+          type: DIRECT_PLUGIN,
+          priority: 1,
+          RenderWidget: () => null,
+        },
+      },
+    ],
+  },
+  remove_year_of_birth_plugin_slot: {
+    plugins: [
+      {
+        op: PLUGIN_OPERATIONS.Insert,
+        widget: {
+          id: 'remove_year_of_birth_plugin_slot',
+          type: DIRECT_PLUGIN,
+          priority: 1,
+          RenderWidget: () => null,
+        },
+      },
+    ],
+  },
+  remove_country_plugin_slot: {
+    plugins: [
+      {
+        op: PLUGIN_OPERATIONS.Insert,
+        widget: {
+          id: 'remove_country_plugin_slot',
           type: DIRECT_PLUGIN,
           priority: 1,
           RenderWidget: () => null,
