@@ -6,6 +6,7 @@ import {
 } from '@openedx/paragon';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { PluginSlot } from '@openedx/frontend-plugin-framework';
 
 import SwitchContent from './SwitchContent';
 import messages from './AccountSettingsPage.messages';
@@ -133,18 +134,31 @@ const EditableSelectField = (props) => {
                 isInvalid={error != null}
               >
                 <Form.Label size="sm" className="h6 d-block" htmlFor={id}>{label}</Form.Label>
-                <Form.Control
-                  data-hj-suppress
-                  name={name}
-                  id={id}
-                  type={type}
-                  as={type}
-                  value={value}
-                  onChange={handleChange}
-                  {...others}
+                <PluginSlot
+                  id="account_editable_select_field_slot"
+                  pluginProps={{
+                    id,
+                    name,
+                    value,
+                    options,
+                    emptyLabel,
+                    error,
+                    onChange,
+                  }}
                 >
-                  {options.length > 0 && selectOptions}
-                </Form.Control>
+                  <Form.Control
+                    data-hj-suppress
+                    name={name}
+                    id={id}
+                    type={type}
+                    as={type}
+                    value={value}
+                    onChange={handleChange}
+                    {...others}
+                  >
+                    {options.length > 0 && selectOptions}
+                  </Form.Control>
+                </PluginSlot>
                 {!!helpText && <Form.Text>{helpText}</Form.Text>}
                 {error != null && <Form.Control.Feedback>{error}</Form.Control.Feedback>}
                 {others.children}
