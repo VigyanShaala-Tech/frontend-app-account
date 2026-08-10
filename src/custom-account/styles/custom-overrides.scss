@@ -1,0 +1,82 @@
+:root {
+  --custom-account-header-offset: 88px;
+}
+
+.page__account-settings {
+  max-width: 1400px !important;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
+
+  .jump-nav .list-unstyled li a {
+    color: var(--pgn-color-primary-base);
+    text-decoration: none;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  // Keep left navigation visible while scrolling.
+  .jump-nav-sm.position-sticky {
+    top: var(--custom-account-header-offset) !important;
+    max-height: calc(100vh - var(--custom-account-header-offset));
+    overflow-y: auto;
+  }
+
+  // Ensure hash navigation lands below sticky header.
+  #basic-information,
+  #profile-information,
+  #social-media,
+  #notifications,
+  #site-preferences,
+  #linked-accounts,
+  #delete-account {
+    scroll-margin-top: calc(var(--custom-account-header-offset) + 0.75rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .page__account-settings {
+    .row {
+      gap: 2rem;
+    }
+
+    .row > .col-md-3,
+    .row > .col-md-9 {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .row > .col-md-3 {
+      flex: 0 0 224px;
+      max-width: 224px;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  :root {
+    --custom-account-header-offset: 76px;
+  }
+
+  .page__account-settings {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    --custom-account-header-offset: 68px;
+  }
+
+  .page__account-settings {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
